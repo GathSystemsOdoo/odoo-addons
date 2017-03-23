@@ -1,7 +1,7 @@
 #!/bin/bash
 # Mit diesem Skript werden alle Pakete für den Odoo Betrieb unter Debian installiert
 # Skript muss mit root-Rechten ausgeführt werden
-# Version 1.3.1 - Stand 28.01.2017
+# Version 1.3.1 - Stand 29.01.2017
 ##############################################################################
 #
 #    Shell Script for Odoo, Open Source Management Solution
@@ -22,7 +22,7 @@
 #
 ##############################################################################
 
-echo "Prepare Debian"
+echo "Prepare Ubuntu 16.04"
 apt-get update && apt-get dist-upgrade && apt-get autoremove
 
 echo "Tools zip, unzip, mc(Midnight Comander) and htop will be install.."
@@ -35,7 +35,7 @@ apt-get install -y --no-install-recommends \
 		mtr \
 		dnsutils \
 		curl \
-		postgresql-client-9.4 \
+		postgresql-client \
 		build-essential \
 		libfreetype6-dev \
 		libjpeg-dev \
@@ -59,21 +59,11 @@ apt-get install -y --no-install-recommends \
 		tesseract-ocr \
 		imagemagick \
 		xfonts-75dpi \
-		xfonts-base
-
-while true; do
-    read -p "Do you want install PostgreSQL? [y/n] / Wollen Sie die PostgreSQL-DB installieren? [j/n]: " yn
-    case $yn in
-        [YyJj]* ) echo "PostgreSQL will be install / PostgreSQL wird installiert ..."
-                    apt-get install -y --no-install-recommends \
-                            postgresql-9.4 \
-                            postgresql-client-9.4
-        break;;
-        [Nn]* ) echo "PostgreSQL is not installed! / PostgreSQL wurde nicht installiert!"
-                        break;;
-        * ) echo "Please answer (y)es or (n)o. / Bitte antworten sie mit (j)a oder (n)ein";;
-    esac
-done
+		xfonts-base \
+		postgresql \
+		wkhtmltopdf \
+		cups \
+		libcups2-dev
 
 echo "apt-get python packages will be install.."
 apt-get install -y --no-install-recommends \
@@ -87,7 +77,7 @@ apt-get install -y --no-install-recommends \
 		python-openssl \
 		python-renderpm \
 		python-reportlab-accel \
-		python-support \
+		python-setuptools \
 		python-tz \
 		python-zsi \
 		python-webdav
@@ -157,6 +147,8 @@ pip install pyelasticsearch
 pip install openpyxl
 pip install phonenumbers
 pip install pysftp
+pip install pycups
+pip install py-Asterisk
 
 echo "OpenSans font will be install..."
 wget https://release.myodoo.de/fonts/opensans.zip
@@ -172,14 +164,5 @@ rm pfbfer.zip
 
 # font cache empty
 fc-cache -f -v
-
-
-echo "WKHTML2PDF will be install..."
-curl -k -o wkhtmltox.deb -SL https://release.myodoo.de/wkhtmltox-0.12.1.2_linux-jessie-amd64.deb \
-    && echo '40e8b906de658a2221b15e4e8cd82565a47d7ee8 wkhtmltox.deb' | sha1sum -c - \
-    && dpkg --force-depends -i wkhtmltox.deb \
-    && apt-get -y install -f --no-install-recommends \
-    && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false -o APT::AutoRemove::SuggestsImportant=false npm \
-    && rm -rf /var/lib/apt/lists/* wkhtmltox.deb
 
 echo "System is prepared now for Odoo - System ist jetzt für Odoo vorbereitet!"
