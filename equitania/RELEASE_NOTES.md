@@ -16,6 +16,210 @@ Vorgehensweise unter Debian:
 
 `fc-cache -f -v`
 
+#### 08.08.2017
+### Version 1.1.181
+#### FIX
+- Reportstyles werden nun angehängt anstatt ersetzt
+
+#### 03.08.2017
+### Version 1.1.180
+#### FIX
+- Ticket #4662 Auf dem Lieferschein werden nun unter weiteren Adress-Möglichkeiten auch die eq_name2 und eq_name3 angezeigt
+- Klassenkopf von eq_list_transient_model(models.TransientModel) auf eq_list_transient_model(models.Model) geändert
+- Auswirkung => Temporäre Klasse hat Datensätze vor dem Druck der Liste geleert
+
+#### 27.07.2017
+### Version 1.1.179
+#### FIX
+- Ticket #4622 Lieferschein: Andruck der Lieferadresse wenn der Kunde keine Firma ist (ohne Parent name und ohne c/o)
+
+#### 27.07.2017
+### Version 1.1.178
+#### ADD/FIX
+- Ticket #4625
+- Problem: Auftragspositionsliste hat beim 1. Ausdruck fehlerhafte/falsche Artikel angezeigt
+- Lösung: Es wird nun explizit darauf abgefragt, von wem der Druck stammt (create_uid,write_uid)
+
+#### 19.07.2017
+### Version 1.1.177
+#### CHG
+- Zusatz zu Version 1.1.176: search_read zu mrp.production und mrp.production.workcenter.line auskommentiert
+Angepasste Modelle: ('sale.order','stock.move','stock.quant','stock.picking','account.invoice','report.stock.lines.date')
+
+#### 19.07.2017
+### Version 1.1.176
+#### FIX
+- Workaround zu Ticket #4569: "Erweiterte Suche" über Datum-Felder mit Timestamp lieferte keine Ergebnisse. Workaround geschaffen: search_read Methode in den jeweiligen Modellen neu eingefügt.
+('sale.order','stock.move','stock.quant','stock.picking','account.invoice','mrp.production','mrp.production.workcenter.line','report.stock.lines.date')
+
+#### 03.07.2017
+### Version 1.1.175
+#### FIX
+- Zendesk-4458, Korrektur der Funktion get_translated_productname in der Klasse eq_report_open_sale_order_line. Damit wir kein Problem mehr mit Singleton haben, wird aus der Liste immer die erste Position geladen<br/>
+<br/><b>! Wichtig !</b><br/>
+Nach dem Update noch das Modul eq_framework_agreement aktualisieren !
+
+
+#### 29.06.2017
+### Version 1.1.174
+#### CHG
+- Ticket 4415: Einstellung "Nur Produkte des ausgewählten Lieferanten sind wählbar" für Produktwahl im Grid der Bestellpositionnen nutzen
+
+#### 29.06.2017
+### Version 1.1.173
+#### CHG
+- Korrektur Übersetzung:  "Order no." von Auftrag-Nr. in "Auftragsnr." der Einheitlichkeit wegen
+
+#### 27.06.2017
+### Version 1.1.172
+#### CHG
+- Ticket 4382: Feld Herkunft für Partner
+
+
+#### 27.06.2017
+### Version 1.1.171
+#### FIX
+- Ticket 4466: Korrektur für Rechnungsreport (Anzeige Lieferdatum)
+
+
+#### 26.06.2017
+### Version 1.1.170
+#### FIX/CHG
+- Bei der Bezeichnung aus der Auftragspositionsliste wird jetzt der deutsche Wert gezogen (Ticket 4459).
+
+
+#### 23.06.2017
+### Version 1.1.169
+#### FIX
+- eq_report_helper: Begrenzung auf feste Steuernamen in Methode check_if_display_gross_price entfernt
+
+
+#### 23.06.2017
+### Version 1.1.168
+#### ADD
+- auf dem Lieferschein (Stock_report_picking.xml)dem Barcode die class="barcode" gegeben
+
+
+#### 22.06.2017
+### Version 1.1.167
+#### FIX
+- schnelle Lösung für unser Problem mit Rechnung und Netto / Brutto (SODY - 22.6.2017)
+
+#### 22.06.2017
+### Version 1.1.166
+#### ADD/CHG
+- Ticket 4420 Workaround: Neuer Eintrag unter dem Button Druck mit der Benennung 'Auftragspositionsliste drucken'. Hier wird ein Wizard aufgerufen mit dem die extrem langen Ladezeiten verhindert werden konnten.
+
+#### 20.06.2017
+### Version 1.1.165
+#### ADD
+- eq_pos in Form-View und Tree View eingefügt und durch das SQL-Statement Statement zur Auftragspositionsliste befüllt.
+
+#### 14.06.2017
+### Version 1.1.164
+#### CHG
+- Pos in die Form-View und Tree-View wieder eingefügt.
+
+#### 12.06.2017
+### Version 1.1.163
+#### CHG
+- Pos wieder zur Auftragspositionsliste hinzugefügt.
+
+#### 12.06.2017
+### Version 1.1.162
+#### FIX
+- Pos aus Überschrift entfernt.
+
+#### 12.06.2017
+### Version 1.1.161
+#### FIX
+- Auskommentiertes Feld eq_pos aus der Reportview entfernt.
+
+#### 15.05.2017
+### Version 1.1.160
+#### ADD
+- Jira-Issue AOE-6: Neues Feld 'eq_foreign_ref_purchase' hinzugefügt. Der Inhalt wird bei Bestellung/Anfragen direkt in das Feld 'partner_ref' geladen.
+
+#### 15.05.2017
+### Version 1.1.159
+#### CHG
+- Reports: Anschriftenfelder berücksichtigen nun Webshop-Kunden mit Vorname & Firmenanschrift
+
+#### 09.05.2017
+### Version 1.1.158
+#### CHG/FIX
+- SQL Statement Auftragspositionen: Berücksichtigung der Abgeschlossen Thematik. Wenn Haken Abgeschlossen gesetzt dann Restmenge 0.
+ 
+#### 04.05.2017
+### Version 1.1.157
+#### IMP
+- Bestell Report: Breite für die Liefer und Rechnungsanschrift verbessert 
+
+#### 04.05.2017
+### Version 1.1.156
+#### CHG
+- Ticket 4142: Anpassungen für Berechnung des Rabattwertes (Rechnungen)
+
+
+#### 04.05.2017
+### Version 1.1.155
+#### FIX
+- Einkauf-Report hatte bei einem Fehler der Reportengine "Datum auswählen" angezeigt.
+- Steuerreihenfolge ändern in der Rechnung
+
+
+
+
+#### 03.05.2017
+### Version 1.1.154
+#### CHG
+- Ticket 4142: Anpassungen für Berechnung des Rabattwertes
+
+
+#### 28.04.2017
+### Version 1.1.153
+#### CHG
+- Ticket 4086: unnötige Leerzeile in Produkttexten der Bestellpositionen entfernt
+
+
+#### 27.04.2017
+### Version 1.1.152
+#### FIX
+- Liefer-Report: Anschrift erweitert für 3 Anschriftmöglichkeiten: Firma, Kontakt einer Firma, Kontakt ohne Firma
+
+#### 26.04.2017
+### Version 1.1.151
+#### FIX
+- Ticket 3846/4120 Anapssung des SQL-Statements entsprechend der Änderungen in dem Modul eq_manufacture_from_sale.
+
+
+#### 13.04.2017
+### Version 1.1.150
+#### FIX
+- Fix für Bug: https://github.com/odoo/odoo/issues/1892
+- Fix für Bug: https://bugs.launchpad.net/openobject-addons/+bug/1202127
+- Fix für Bug: https://github.com/odoo/odoo/issues/6251
+
+#### 13.04.2017
+### Version 1.1.149
+#### CHG
+- Lieferschein Report: doppeltes Gewichtsfeld entfernt
+
+#### 12.04.2017
+### Version 1.1.148
+#### FIX
+- Kleiner Reportfix für das Label der Kontaktperson
+
+
+#### 28.03.2017
+### Version 1.1.147
+#### CHG
+- Entfernung der Rechtegruppe - Managed-Admin
+
+#### 23.03.2017
+### Version 1.1.146
+#### CHG
+- Rechtedatei angepasst, sodass Unterschriftssignatur durch einen "normalen" Benutzer gepflegt werden kann.
 
 #### 21.03.2017
 ### Version 1.1.145

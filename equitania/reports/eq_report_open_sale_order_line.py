@@ -21,6 +21,7 @@
 
 import time
 from openerp.osv import osv
+from openerp import api
 from openerp.report import report_sxw
 
 class eq_report_open_sale_order_line(report_sxw.rml_parse):
@@ -32,6 +33,9 @@ class eq_report_open_sale_order_line(report_sxw.rml_parse):
             'get_qty':self.get_qty,
             'get_price': self.get_price,
             'get_standard_price': self.get_standard_price,
+            'get_records': self._get_records,
+            'get_translated_productname': self.get_translated_productname,
+            'get_product_no': self.get_product_no
         })
         
     
@@ -45,6 +49,45 @@ class eq_report_open_sale_order_line(report_sxw.rml_parse):
     
     def get_standard_price(self, object, language, currency_id):
         return self.pool.get("eq_report_helper").get_standard_price(self.cr, self.uid, object, language, currency_id)
+
+
+    def _get_records(self):
+        """
+            Get all records created by wizard and show them as lines in table
+            @return: An array with all created records from eq_product_sales_data table
+        """
+
+        result = []
+        table = self.pool.get('eq_buffer_order_line_list')
+        ids = table.search(self.cr, self.uid, [('create_uid','=',self.uid),('write_uid','=',self.uid)])
+        for id in ids:
+            result.append(table.browse(self.cr, self.uid, id))
+
+        return result
+
+    def get_translated_productname(self,obj):
+        tmpl_id = obj.product_tmpl_id.id
+        ir_translation_id = self.pool.get('ir.translation').search(self.cr, self.uid, [('res_id', '=', tmpl_id), ('name', '=', 'product.template,name')])
+        if ir_translation_id:
+            id_to_select = None
+            if len(ir_translation_id) > 1:
+                id_to_select = ir_translation_id[0]             # wir haben hier mehrere Positionen zurückbekommen und wollen kein Singletonfehler haben..also...es wird die erste Position geladen
+            else:
+                id_to_select = ir_translation_id
+
+            #ir_translation_obj = self.pool.get('ir.translation').browse(self.cr,self.uid,ir_translation_id)
+            ir_translation_obj = self.pool.get('ir.translation').browse(self.cr, self.uid, id_to_select)
+            result = ir_translation_obj.value
+        else:
+            product_id = self.pool.get('product.template').search(self.cr, self.uid,[('id', '=', tmpl_id)])
+            product_obj = self.pool.get('product.template').browse(self.cr,self.uid,product_id)
+            result = product_obj.name
+        return result
+
+    def get_product_no(self,obj):
+        if len(obj) > 0 :
+            result = '[' + obj.default_code + ']'
+        return result
           
     
 class report_lunchorder(osv.AbstractModel):

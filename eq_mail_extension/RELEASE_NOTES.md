@@ -1,5 +1,19 @@
 ## Modul eq_mail_extension
 
+#### 20.07.2017
+#### Version 1.0.12
+##### FIX/CHG
+- BugFix aus Odoo 10 Version übernommen (Wenn kein Standard-Mailserver vorhanden ist)
+
+#### 20.06.2017
+#### Version 1.0.11
+##### FIX/CHG
+- Jira Issue OBA-30: Return-Path, email_from und reply_to werden nach dem Mail Server entsprechend gesetzt (nach der Emailadresse, welcher bei dem User hinterlegt ist).
+
+#### 10.05.2017
+#### Version 1.0.10
+##### CHG
+- Bei einem Cronjob oder einem manuellen "Sofort senden" durch den Administrator, wird jetzt über die author_id der zu sendeten Mail der Benutzer und dementsprechend der entsprechende Mail-Server ermittelt.
 
 #### 25.11.2016
 #### Version 1.0.9

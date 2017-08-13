@@ -29,13 +29,34 @@ class eq_sale_order_line(models.Model):
     _inherit = 'sale.order.line'
     
     
-    @api.depends('discount', 'price_unit', 'product_uom_qty')
+    @api.depends('discount', 'price_unit', 'product_uom_qty', 'price_subtotal')
     def _compute_discount(self):
+        """
+        Berechnet den Rabattwert für eine Position
+        :return:
+        """
+
         for record in self:
-            record.discount_value = record.discount / 100 * record.price_unit * record.product_uom_qty
-            
+            # Ticket 4142: neue Berechnung für Rabatt: Preis * Menge - Betrag inkl. Rabatt
+            if record.price_subtotal:
+                record.discount_value = record.price_unit * record.product_uom_qty - record.price_subtotal
+            else:
+                # Falls Betrag noch nicht berchnet wurde, alte Logik nutzen
+                # cur_obj = self.pool.get('res.currency')
+                # full_price = record.price_unit * record.product_uom_qty
+                # subtotal = cur_obj.round(cr, uid, cur, full_price * (1 - (order.eq_percent_discount / 100)))
+                # record.discount_value = full_price - subtotal
+
+
+                record.discount_value = record.discount / 100 * record.price_unit * record.product_uom_qty
+
+
     @api.depends('discount', 'discount_value')
     def _compute_discount_display(self):
+        """
+        Berechnet den Rabattwert der einzelnen Positionen in der Treeansicht des Auftragsformulars
+        :return:
+        """
         currency_symbol = self[0].order_id.company_id.currency_id.symbol
         if (self and self[0].order_id and self[0].order_id.pricelist_id):            
             currency_symbol = self[0].order_id.pricelist_id.currency_id.symbol

@@ -22,7 +22,7 @@
 {
     'name': 'Equitania Erweiterungsmodul',
     'license': 'AGPL-3',
-    'version': '1.1.145',
+    'version': '1.1.181',
     'description': """
         Equitania Software GmbH
     """,
@@ -31,7 +31,8 @@
     'depends': [
                 'base_setup', 'purchase', 'sale',  'account', 'stock_account', 'product',
                 'mail', 'report', 'hr', 'crm', 'stock','sale_stock', 'delivery',
-                'website','website_quote', 'website_report', 'account_cancel', 'web_ckeditor4'],
+                'website','website_quote', 'website_report', 'account_cancel', 'web_ckeditor4',
+                'account_voucher'],
     'category' : 'General Improvements',
     'summary': 'Sale, Account, Product, Mail, Report, CRM, Purchase',
     #'init': [
@@ -40,7 +41,6 @@
     'data': [
         'security/equitania_security.xml',
         'security/ir.model.access.csv',
-        'security/menuitems_managed_admin.xml',
         'security/ir_ui_menu.xml',
         'wizard/eq_multy_assign_product_no_view.xml',
         'account_invoice_view.xml',
@@ -100,6 +100,7 @@
         'reports/eq_product_analysis_report.xml',
         'eq_email_template_view.xml',
         'res_country_view.xml',
+         'wizard/eq_list_print_wiz.xml',
     ],
     'demo': [],
     'css': ['static/src/css/eq_style.css'],

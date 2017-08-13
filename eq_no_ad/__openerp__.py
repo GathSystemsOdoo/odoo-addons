@@ -22,7 +22,7 @@
 {
     'name': 'Equitania No Advertisement',
     'license': 'AGPL-3',
-    'version': '1.0.2',
+    'version': '1.0.3',
     'description': """
         Module deactivate the phone home function of Odoo!
         Odoo account will also deactivated. 

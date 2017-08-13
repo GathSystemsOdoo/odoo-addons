@@ -206,6 +206,7 @@ msgstr "Kalenderwoche"
 #: view:eq.date.done.change:equitania.eq_date_done_form_view
 #: view:eq.product.select.case.section.wiz:equitania.eq_select_crm_case_section_wiz
 #: view:eq_info_optional:equitania.eq_info_optional_form_view
+#: view:eq_list.print.wiz:equitania.eq_print_wiz
 #: view:eq_pricelist_item_search:equitania.eq_pricelist_item_search_form_view
 #: view:equitania.product.analysis.report.wiz:equitania.eq_product_analysis_report_wiz_view
 #: view:equitania.product.sales.report.wiz:equitania.eq_product_sales_report_wiz_view
@@ -784,7 +785,13 @@ msgstr "Bei Fragen wenden Sie sich bitte an:"
 #. module: equitania
 #: field:res.partner,eq_foreign_ref:0
 msgid "Foreign reference"
-msgstr "Fremdnr."
+msgstr "Fremdnr. Kunde"
+
+#. module: equitania
+#: field:res.partner,eq_foreign_ref_purchase:0
+#: field:res.users,eq_foreign_ref_purchase:0
+msgid "Foreign reference purchase"
+msgstr "Fremdnr. Lieferant"
 
 #. module: equitania
 #: view:eq_open_sale_order_line:equitania.eq_open_sale_order_line_search_view
@@ -1367,7 +1374,7 @@ msgstr "Bestelldatum"
 #. module: equitania
 #: view:website:equitania.eq_external_layout_header_sale_order_data
 msgid "Order no."
-msgstr "Auftrag-Nr."
+msgstr "Auftragsnr."
 
 #. module: equitania
 #: view:website:equitania.eq_external_layout_header_purchase_order_data
@@ -1516,10 +1523,17 @@ msgid "Pricelist item"
 msgstr "Preisliste Einzelposition"
 
 #. module: equitania
+#: view:eq_list.print.wiz:equitania.eq_print_wiz
 #: view:equitania.product.analysis.report.wiz:equitania.eq_product_analysis_report_wiz_view
 #: view:equitania.product.sales.report.wiz:equitania.eq_product_sales_report_wiz_view
+#: model:ir.actions.act_window,name:equitania.action_eq_print_wiz
 msgid "Print"
 msgstr "Drucken"
+
+#. module: equitania
+#: model:ir.actions.act_window,name:equitania.eq_list_print_wiz
+msgid "Print List"
+msgstr "Auftragspositionsliste drucken"
 
 #. module: equitania
 #: view:website:equitania.report_invoice_data
@@ -2552,6 +2566,7 @@ msgstr "oe_left"
 #: view:eq.date.done.change:equitania.eq_date_done_form_view
 #: view:eq.product.select.case.section.wiz:equitania.eq_select_crm_case_section_wiz
 #: view:eq_info_optional:equitania.eq_info_optional_form_view
+#: view:eq_list.print.wiz:equitania.eq_print_wiz
 #: view:eq_multy_assign_product_no:equitania.eq_multy_assign_product_no_form_view
 #: view:eq_pricelist_item_search:equitania.eq_pricelist_item_search_form_view
 #: view:equitania.product.analysis.report.wiz:equitania.eq_product_analysis_report_wiz_view
@@ -2892,3 +2907,14 @@ msgstr "E-Mail Passwort zurücksetzen"
 #: field:base.config.settings,default_reset_passwort:0
 msgid "Send a reset-password email, if a new user will created. [equitania]"
 msgstr "Es wird eine E-Mail zum Passwort zurücksetzen versendet, sobald ein neuer Benutzer angelegt wird. [equitania]"
+
+
+#. module: equitania
+#: field:res.partner,source_id:0
+msgid "Source"
+msgstr "Herkunft"
+
+#. module: equitania
+#: help:res.partner,source_id:0
+msgid "This is the source of the link Ex: Search Engine, another domain, or name of email list"
+msgstr "Hier können Sie die Herkunft neuer Interessenten vermerken: Suchmaschine, Webseite, E-Mail Liste, usw."

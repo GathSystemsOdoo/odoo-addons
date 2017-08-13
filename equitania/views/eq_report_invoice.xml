@@ -171,13 +171,23 @@
 							<h t-field="o.company_id.city" />
 						</div>
 						<div t-if="o.partner_id.is_company">
-							<div  style="clear:left;">
-								<h t-if="o.partner_id.title.name" t-field="o.partner_id.title.name"  />
-								<h t-if="o.partner_id.eq_firstname" t-field="o.partner_id.eq_firstname" />
-								<h t-field="o.partner_id.name" />
+							<div t-if="o.partner_id.eq_firstname" style="clear:left;">
+								<!-- eq_name2 (Firma) wird vorgezogen wenn ein Vorname für die FIRMA vorhanden ist - dies ist aus steuerrechtlicher Sicht wichtig. Thema: Webshop-Kunde mit Firma.  -->
+								<div t-if="o.partner_id.eq_name2" t-field="o.partner_id.eq_name2" style="clear:left;" />
+								<div  style="clear:left;">
+									<h t-if="o.partner_id.title.name" t-field="o.partner_id.title.name"  />
+									<h t-if="o.partner_id.eq_firstname" t-field="o.partner_id.eq_firstname" />
+									<h t-field="o.partner_id.name" />
+								</div>
 							</div>
-							<div t-if="o.partner_id.eq_name2" t-field="o.partner_id.eq_name2"
-								style="clear:left;" />
+							<div t-if="not o.partner_id.eq_firstname" style="clear:left;">
+								<div  style="clear:left;">
+									<h t-if="o.partner_id.title.name" t-field="o.partner_id.title.name"  />
+									<h t-if="o.partner_id.eq_firstname" t-field="o.partner_id.eq_firstname" />
+									<h t-field="o.partner_id.name" />
+								</div>
+								<div t-if="o.partner_id.eq_name2" t-field="o.partner_id.eq_name2" style="clear:left;" />
+							</div>
 							<div t-if="o.partner_id.eq_name3" t-field="o.partner_id.eq_name3"
 								style="clear:left;" />
 							<div>
@@ -421,10 +431,12 @@
 										<span style="font-weight:bold;">
 											Delivery No.
 											<span t-field="l.eq_move_id.picking_id.name" />
-											from
-											<span
-												t-esc="l.eq_move_id.picking_id.date_done.split(' ')[0].split('-')[2] + '.' + l.eq_move_id.picking_id.date_done.split(' ')[0].split('-')[1] + '.' + l.eq_move_id.picking_id.date_done.split(' ')[0].split('-')[0]" />
-											/ Delivery Date (the date of service)
+											<t t-if="l.eq_move_id.picking_id.date_done">
+												from
+												<span
+													t-esc="l.eq_move_id.picking_id.date_done.split(' ')[0].split('-')[2] + '.' + l.eq_move_id.picking_id.date_done.split(' ')[0].split('-')[1] + '.' + l.eq_move_id.picking_id.date_done.split(' ')[0].split('-')[0]" />
+												/ Delivery Date (the date of service)
+											</t>
 										</span>
 									</td>
 								</tr>
@@ -601,7 +613,7 @@
 										<strong>Total without taxes</strong>
 									</td>
 									<!--  NEUE STEUERSPALTE -->
-									<td class="text-right" t-foreach="[x for x in o.tax_line if x.amount]" t-as="tax_line">
+									<td class="text-right" t-foreach="set([x for x in o.tax_line if x.amount])" t-as="tax_line">
 										<strong>
 											<span t-esc="tax_line.name" />
 										</strong>
@@ -625,7 +637,7 @@
 											t-esc="get_standard_price(o.amount_untaxed, o.partner_id.lang, o.currency_id)" />
 									</td>
 																		<!--  NEUE STEUERSPALTE -->
-									<td class="text-right" t-foreach="[x for x in o.tax_line if x.amount]" t-as="tax_line">
+									<td class="text-right" t-foreach="set([x for x in o.tax_line if x.amount])" t-as="tax_line">
 										<span t-esc="get_standard_price(tax_line.amount, o.partner_id.lang, o.currency_id)" />
 									</td>
 									<!--  ALTE STeuerspalte
