@@ -210,12 +210,12 @@ class eq_report_extension_sale_order(osv.osv):
         inv_obj.button_compute(cr, uid, [inv_id])
         return inv_id
     
-    def action_invoice_create(self, cr, uid, ids, grouped=False, states=None, date_invoice = False, context=None):
+    """def action_invoice_create(self, cr, uid, ids, grouped=False, states=None, date_invoice = False, context=None):
         inv_id = super(eq_report_extension_sale_order, self).action_invoice_create(cr, uid, ids, grouped, states,date_invoice, context)
         order = self.browse(cr, uid, ids, context)
         for inv in inv_id if isinstance(inv_id, list) else [inv_id]:
             self.pool.get('account.invoice').write,(cr, uid, inv, {'eq_ref_number': order.origin, 'eq_delivery_address': order.partner_shipping_id.id})
-        return inv_id
+        return inv_id"""
 
 class eq_report_extension_sale_order_line(osv.osv):
     _inherit = "sale.order.line"
